@@ -38,8 +38,9 @@ public:
 	// }
 
 	// Constructor using member initializer list
+	// x(9) calls the constructor of Example class for object 'x'
 	Entity()
-	: a(5), name("mohit"), x(8)
+	: a(5), name("mohit"), x(9)
 	{ 	}
 
 
