@@ -1,6 +1,7 @@
 // https://www.youtube.com/watch?v=nCAVr_T4DbM&list=PLLYz8uHU480j37APNXBdPz7YzAi4XlQUF&index=56&t=0s
 // saurabh shukla video youtube
 
+
 #include<iostream>
 
 class Dummy{
@@ -23,7 +24,22 @@ public:
 		std::cout << "gello" << std::endl;
 		this->a = r.a;
 		this->b = r.b;
-		this->ptr = r.ptr;
+		// this->ptr = r.ptr;
+		// we need to allocate the space for this->ptr on
+		// heap since the constructor Dummy() has not been called
+		// for it so space has been allocated for it
+		// There might be cleaner ways to do it, but I am not 
+		// aware of it. 
+		this->ptr = new int;
+		*(this->ptr) = *(r.ptr);
+	}
+
+	// we were not able to do this using shallow copy
+	// since this would create a dangling pointer i.e. 
+	// a pointer pointing to an invalid memory location
+	~Dummy()
+	{
+		delete ptr;
 	}
 
 	void set(int a = 0, int b= 0, int x = 0)
