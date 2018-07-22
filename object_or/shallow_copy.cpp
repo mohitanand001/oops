@@ -1,5 +1,5 @@
 // https://www.youtube.com/watch?v=nCAVr_T4DbM&list=PLLYz8uHU480j37APNXBdPz7YzAi4XlQUF&index=56&t=0s
-
+// saurabh shukla video youtube
 
 #include<iostream>
 
@@ -24,11 +24,6 @@ public:
 		this->a = r.a;
 		this->b = r.b;
 		this->ptr = r.ptr;
-	}
-
-	~Dummy()
-	{
-		delete ptr;
 	}
 
 	void set(int a = 0, int b= 0, int x = 0)
@@ -62,6 +57,11 @@ int main()
 	Dummy d2 = d1;
 	d2.get();
 
+
+	// we can notice that both the ptr of d1 and d2 are pointing
+	// to the same memory location, when we change the value 
+	// of memory location pointed by d2 to 20, the value of memory location
+	// pointed by d1 also changes
 	d2.set(1, 5, 20);
 	d2.get();
 	d1.get();
