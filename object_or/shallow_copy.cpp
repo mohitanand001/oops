@@ -26,10 +26,10 @@ public:
 		this->ptr = r.ptr;
 	}
 
-	// ~Dummy()
-	// {
-	// 	delete ptr;
-	// }
+	~Dummy()
+	{
+		delete ptr;
+	}
 
 	void set(int a = 0, int b= 0, int x = 0)
 	{
