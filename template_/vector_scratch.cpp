@@ -13,11 +13,13 @@ public:
 	
 	vector(int curr_size): sz(curr_size), head(new double[curr_size]), space(curr_size) {}
 
-	void operator=(vector &v);
+	vector& operator=(const vector &v);
 
 	vector operator*(vector &x); 
 
 	double operator[](int n){ return (this->head)[n];}
+
+	const double operator[](int n) const { return (this->head)[n]; }
 
 	int size(); 
 
@@ -31,10 +33,10 @@ public:
 	~vector(){ delete[] this->head; }
 };
 
-void vector::operator=(vector &v)
+vector& vector::operator=(const vector &v)
 {
 	if((this->head) == (v.head))
-		return ;
+		return (*this);
 
 	if((this->space) >= v.sz)
 	{
@@ -43,7 +45,7 @@ void vector::operator=(vector &v)
 
 		this->sz = v.sz;
 
-		return ;
+		return (*this);
 	}
 
 	double *n_head = new double[v.sz];
@@ -57,7 +59,7 @@ void vector::operator=(vector &v)
 	this->space = v.sz;
 	this->head = n_head;
 
-	return ;
+	return (*this);
 }
 
 vector vector::operator*(vector &x)
@@ -115,34 +117,28 @@ void vector::push_back(double element)
 int main()
 {
 	
-	vector vec, dec;
+	vector vec, dec	;
 	vec.push_back(12);
 	vec.push_back(3);
 	vec.push_back(5);
 	vec.push_back(4.2);
 
-	for(int i = 0; i < vec.size(); i +=1)
-		cout << vec[i] << " " ;
-
-	dec = vec;
-	cout << endl;
-
-	for(int i = 0; i < dec.size(); i +=1)
-		cout << dec[i] << " ";
-
-	cout<< endl;
-
-	{dec;}
 	dec.push_back(12);
 	dec.push_back(2);
 	dec.push_back(34);
 	dec.push_back(1);
 
-	// vector mul;
-	// mul = dec*vec;
+	vector dul = dec*vec;
 
-	// for(int i = 0; i < mul.size(); i +=1)
-	// 	cout << mul[i] << " ";
+	for(int i = 0; i < dul.size(); i +=1)
+		cout << dul[i] << " ";
+	
+	vector mul;
+	mul=dec*vec;
+
+	cout << endl;	
+	for(int i = 0; i < mul.size(); i +=1)
+		cout<< mul[i] << " ";
 
 	cout<< endl;
 
