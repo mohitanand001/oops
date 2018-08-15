@@ -16,6 +16,8 @@ public:
 
 	vector& operator=(const vector &v);
 
+	void operator=(T);
+
 	vector operator*(vector &x); 
 
 	T operator[](int n);
@@ -193,6 +195,11 @@ int main()
 
 	vector<double> rec;
 	rec = lec*dec;
+
+/*	The follwing line throws error since, res[0] will evaluate to a number
+	because of operator [] overloading, will have to figure out how 
+	to implement this	 
+	rec[0] = 23;*/
 
 	for(int i = 0; i < rec.size(); i +=1)
 		cout << rec[i] << " ";
