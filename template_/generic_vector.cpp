@@ -18,37 +18,9 @@ public:
 
 	vector operator*(vector &x); 
 
-	T operator[](int n){ 
-		try{
-			if(n >= sz or n < 0)
-			{
-				throw -1;
-			}
-			
-		}
-		catch(int n){
-			cout << endl <<  "vector index OutOfBounds exception" << endl;
-			exit(-1);
-		}
+	T operator[](int n);
 
-		return (this->head)[n];
-	}
-
-	const T operator[](int n) const {
-		try{
-			if(n >= sz or n < 0)
-			{
-				throw -1;
-			}
-			
-		}
-		catch(int n){
-			cout << endl <<  "vector index OutOfBounds exception" << endl;
-			exit(-1);
-		}
-
-	 return (this->head)[n]; 
-	}
+	const T operator[](int n) const;
 
 	int size(); 
 
@@ -104,6 +76,44 @@ vector<T> vector<T>::operator*(vector &x)
 	}
 
 	return temp;
+}
+
+template<class T>
+T vector<T>::operator[](int n)
+{
+	try{
+		if(n >= sz or n < 0)
+		{
+			throw -1;
+		}
+		
+	}
+	catch(int n){
+		cout << endl <<  "vector index OutOfBounds exception" << endl;
+		exit(-1);
+	}
+
+	return (this->head)[n];
+
+}
+
+template<class T>
+const T vector<T>::operator[](int n) const{
+
+	try{
+		if(n >= sz or n < 0)
+		{
+			throw -1;
+		}
+		
+	}
+	catch(int n){
+		cout << endl <<  "vector index OutOfBounds exception" << endl;
+		exit(-1);
+	}
+
+	return (this->head)[n];
+
 }
 
 template<class T>
@@ -187,11 +197,9 @@ int main()
 	for(int i = 0; i < rec.size(); i +=1)
 		cout << rec[i] << " ";
 
-	rec[34];
+	// throws out of bounds exception
+	rec[234];
 
-	cout<<"dsd";
-
-	cout << endl;
 
 	return 0;
 }
