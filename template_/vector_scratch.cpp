@@ -13,7 +13,7 @@ public:
 	
 	vector(int curr_size): sz(curr_size), head(new double[curr_size]), space(curr_size) {}
 
-	vector& operator=(const vector &v);
+	void operator=(const vector &v);
 
 	vector operator*(vector &x); 
 
@@ -33,10 +33,10 @@ public:
 	~vector(){ delete[] this->head; }
 };
 
-vector& vector::operator=(const vector &v)
+void vector::operator=(const vector &v)
 {
 	if((this->head) == (v.head))
-		return (*this);
+		return ;
 
 	if((this->space) >= v.sz)
 	{
@@ -45,7 +45,7 @@ vector& vector::operator=(const vector &v)
 
 		this->sz = v.sz;
 
-		return (*this);
+		return ;
 	}
 
 	double *n_head = new double[v.sz];
@@ -59,7 +59,7 @@ vector& vector::operator=(const vector &v)
 	this->space = v.sz;
 	this->head = n_head;
 
-	return (*this);
+	return ;
 }
 
 vector vector::operator*(vector &x)
@@ -134,7 +134,21 @@ int main()
 		cout << dul[i] << " ";
 	
 	vector mul;
-	mul=dec*vec;
+
+	// https://stackoverflow.com/questions/10897799/temporary-objects-when-are-they-created-how-do-you-recognise-them-in-code
+	// c++ rules states that a non-const temporary object, cannot be 
+	// bound to a reference
+	// here, if we have an overloaded operator=
+	// with function sinature like void operator=(vector &v)
+	// dec*vec will return a vector object (which is temporary, not named)
+	// and this temporary object will be tried to bind with
+	// vector &v, so this will throw an error
+	// A workaround would be to change 
+	// void operator=(vector &v) to
+	// void operator=(vector v) 
+	// but this will result in a wasteful copying of vector data
+	// so a better soln would be to const the parameters
+	mul = dec*vec;
 
 	cout << endl;	
 	for(int i = 0; i < mul.size(); i +=1)
