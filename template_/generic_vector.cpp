@@ -18,9 +18,37 @@ public:
 
 	vector operator*(vector &x); 
 
-	T operator[](int n){ return (this->head)[n];}
+	T operator[](int n){ 
+		try{
+			if(n >= sz or n < 0)
+			{
+				throw -1;
+			}
+			
+		}
+		catch(int n){
+			cout << endl <<  "vector index OutOfBounds exception" << endl;
+			exit(-1);
+		}
 
-	const T operator[](int n) const { return (this->head)[n]; }
+		return (this->head)[n];
+	}
+
+	const T operator[](int n) const {
+		try{
+			if(n >= sz or n < 0)
+			{
+				throw -1;
+			}
+			
+		}
+		catch(int n){
+			cout << endl <<  "vector index OutOfBounds exception" << endl;
+			exit(-1);
+		}
+
+	 return (this->head)[n]; 
+	}
 
 	int size(); 
 
@@ -145,11 +173,23 @@ int main()
 
 	cout << endl;
 
-	dec.push_back(2.3);	
+	dec.push_back(2.09);	
 	lec = dec;
 
 	for(int i = 0; i < lec.size(); i +=1)
 		cout << lec[i] << " " ;
+
+	cout << endl;
+
+	vector<double> rec;
+	rec = lec*dec;
+
+	for(int i = 0; i < rec.size(); i +=1)
+		cout << rec[i] << " ";
+
+	rec[34];
+
+	cout<<"dsd";
 
 	cout << endl;
 
