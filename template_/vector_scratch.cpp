@@ -13,7 +13,7 @@ public:
 	
 	vector(int curr_size): sz(curr_size), head(new double[curr_size]), space(curr_size) {}
 
-	void operator=(const vector &v);
+	vector& operator=(const vector &v);
 
 	vector operator*(vector &x); 
 
@@ -33,10 +33,10 @@ public:
 	~vector(){ delete[] this->head; }
 };
 
-void vector::operator=(const vector &v)
+vector& vector::operator=(const vector &v)
 {
 	if((this->head) == (v.head))
-		return ;
+		return (*this);
 
 	if((this->space) >= v.sz)
 	{
@@ -45,7 +45,7 @@ void vector::operator=(const vector &v)
 
 		this->sz = v.sz;
 
-		return ;
+		return (*this);
 	}
 
 	double *n_head = new double[v.sz];
@@ -59,7 +59,7 @@ void vector::operator=(const vector &v)
 	this->space = v.sz;
 	this->head = n_head;
 
-	return ;
+	return (*this);
 }
 
 vector vector::operator*(vector &x)
@@ -128,33 +128,49 @@ int main()
 	dec.push_back(34);
 	dec.push_back(1);
 
+	// called implicit copy-constructor
 	vector dul = dec*vec;
 
 	for(int i = 0; i < dul.size(); i +=1)
 		cout << dul[i] << " ";
+	cout << endl;
 	
 	vector mul;
-
-	// https://stackoverflow.com/questions/10897799/temporary-objects-when-are-they-created-how-do-you-recognise-them-in-code
-	// c++ rules states that a non-const temporary object, cannot be 
-	// bound to a reference
-	// here, if we have an overloaded operator=
-	// with function sinature like void operator=(vector &v)
-	// dec*vec will return a vector object (which is temporary, not named)
-	// and this temporary object will be tried to bind with
-	// vector &v, so this will throw an error
-	// A workaround would be to change 
-	// void operator=(vector &v) to
-	// void operator=(vector v) 
-	// but this will result in a wasteful copying of vector data
-	// so a better soln would be to const the parameters
+/*
+	https://stackoverflow.com/questions/10897799/temporary-objects-when-are-they-created-how-do-you-recognise-them-in-code
+	https://stackoverflow.com/questions/13826897/why-not-non-const-reference-to-temporary-objects
+	c++ rules states that a non-const temporary object, cannot be 
+	bound to a reference
+	here, if we have an overloaded operator=
+	with function sinature like void operator=(vector &v)
+	dec*vec will return a vector object (which is temporary, not named)
+	and this temporary object will be tried to bind with
+	vector &v, so this will throw an error
+	A workaround would be to change 
+	void operator=(vector &v) to
+	void operator=(vector v) 
+	but this will result in a wasteful copying of vector data
+	so a better soln would be to const the parameters
+	*/
+	// overloaded equality is called
 	mul = dec*vec;
 
-	cout << endl;	
 	for(int i = 0; i < mul.size(); i +=1)
-		cout<< mul[i] << " ";
+		cout << mul[i] << " ";
 
-	cout<< endl;
+	cout << endl;
+
+	/*we can still improve the overloaded equality
+	operator by returing vector since this will ensure 
+	equality chaining like the following works*/
+
+	vector rec;
+	rec = vec = dec ;
+
+	for(int i = 0; i < rec.size(); i +=1)
+		cout << rec[i] << " ";
+	cout << endl;
+
 
 	return 0;
 }
