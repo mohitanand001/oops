@@ -20,9 +20,9 @@ public:
 
 	vector operator*(vector &x); 
 
-	T operator[](int n);
+	T& operator[](int n);
 
-	const T operator[](int n) const;
+	const T& operator[](int n) const;
 
 	int size(); 
 
@@ -81,7 +81,7 @@ vector<T> vector<T>::operator*(vector &x)
 }
 
 template<class T>
-T vector<T>::operator[](int n)
+T& vector<T>::operator[](int n)
 {
 	try{
 		if(n >= sz or n < 0)
@@ -100,7 +100,7 @@ T vector<T>::operator[](int n)
 }
 
 template<class T>
-const T vector<T>::operator[](int n) const{
+const T& vector<T>::operator[](int n) const{
 
 	try{
 		if(n >= sz or n < 0)
@@ -200,6 +200,9 @@ int main()
 	because of operator [] overloading, will have to figure out how 
 	to implement this	 
 	rec[0] = 23;*/
+
+
+	/*Found a fix to the above problem, */
 
 	for(int i = 0; i < rec.size(); i +=1)
 		cout << rec[i] << " ";
