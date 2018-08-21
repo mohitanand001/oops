@@ -19,9 +19,18 @@ int main()
 {
 	vector<int> vec = {1, 2, 45, 6, 5, 65};
 
-	modify(vec, [](int val){
+	modify(vec, [](int val)
+	{
 
 		return val > 3;
+	});
+
+	/*the & in the [] indicates that the 
+	function will pass everything by reference 
+	*/
+	modify(vec, [&](int val)
+	{
+		return 5;
 	});
 
 	return 0;
