@@ -1,2 +1,2 @@
 # oops
-Learning Oops in c++
+Learning OOPS in c++
