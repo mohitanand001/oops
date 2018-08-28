@@ -14,6 +14,9 @@ double add(double x, double y)
 
 int main()
 {	
+	// nm ./a.out to view the symbol table, and notice that
+	// add(int, int) has been name mangled to _Z3addii
+	// and add(double, double) has been name mangled to _Z3adddd
 	cout << add(1, 4) << endl;
 	cout << add(1.3, 23.1) << endl;
 
